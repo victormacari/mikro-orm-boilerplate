@@ -54,4 +54,6 @@ RUN adduser vmacari --disabled-password -h /app --u 2000 && chown -R vmacari:vma
 
 USER vmacari
 
+EXPOSE 3002
+
 CMD [ "node", "./dist/src/main.js" ]
