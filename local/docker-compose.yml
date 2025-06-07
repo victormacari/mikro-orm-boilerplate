@@ -1,0 +1,51 @@
+version: '3.8'
+name: mikro-orm-boilerplate
+services:
+  db-example:
+     container_name: db-example
+     image: postgres:16-alpine
+     command: ["postgres", "-c", "wal_level=logical"]
+     ports:
+       - ${DB_PORT}:5432
+     restart: unless-stopped
+     environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+     healthcheck:
+      test: ["CMD", "pg_isready", "-q", "-U", "postgres"]
+      interval: 5s
+      timeout: 1s
+      retries: 2
+     networks:
+      - example_network
+     profiles:
+       - example-local
+
+  example-migration-job:
+   container_name: example-migration-job
+   build:
+    context: ../
+    dockerfile: ./Dockerfile
+    target: mikro-orm-job
+   networks:
+    - example_network
+   volumes:
+     - ../migrations:/app/migrations
+   environment:
+   - MIKRO_ORM_PASSWORD=postgrespassword
+   - MIKRO_ORM_USER=postgres
+   - MIKRO_ORM_HOST=db-example
+   - MIKRO_ORM_DB_NAME=example-db
+   - MIKRO_ORM_PORT=5432
+   depends_on:
+    db-example:
+     condition: service_healthy
+   profiles:
+     - migration-job-test
+networks:
+  example_network:
+   name: example_network
+   external: false
+     

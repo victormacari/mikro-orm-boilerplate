@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "moduleResolution": "node",
+        "module": "commonjs",
+        "outDir": "dist",
+        "target": "es2021",
+        "skipLibCheck": true
+    },
+    "include": [
+        "migrations/**/*",
+        "./mikro-orm.config.ts"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist"
+    ]
+}

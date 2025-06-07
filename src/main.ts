@@ -13,7 +13,7 @@ import {
   VersioningType,
 } from '@nestjs/common';
 
-const port: string = process.env.PORT || '3001';
+const port: string = process.env.PORT || '3002';
 async function bootstrap() {
   try {
     const fastifyAdapter: FastifyAdapter = new FastifyAdapter({
@@ -48,7 +48,7 @@ async function bootstrap() {
       defaultVersion: '1',
     });
 
-    await app.listen(port, () => {
+    await app.listen(port, '0.0.0.0', () => {
       Logger.log(`server is listening on ${port}`);
     });
   } catch (err) {
