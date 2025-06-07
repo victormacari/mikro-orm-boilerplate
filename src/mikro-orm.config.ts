@@ -27,7 +27,7 @@ const config = defineConfig({
   user: process.env.DB_USER,
   host: process.env.DB_HOST,
   password: process.env.DB_PASSWORD,
-  entities: [`${__dirname}/**/*.entity.ts`],
+  entities: [`${__dirname}/**/*.entity.{ts,js}`],
   namingStrategy: UnderscoreNamingStrategy,
   logger: logger.log.bind(logger),
   migrations: {
