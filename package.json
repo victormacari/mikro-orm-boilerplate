@@ -14,7 +14,7 @@
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "prettier": "prettier --check \"src/**/*.ts\"",
-    "prettier:fix":  "prettier --write \"src/**/*.ts\"",
+    "prettier:fix": "prettier --write \"src/**/*.ts\"",
     "lint:fix": "eslint \"src/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -49,6 +49,8 @@
     "rxjs": "7.8.1"
   },
   "devDependencies": {
+    "@faker-js/faker": "9.0.0",
+    "@golevelup/ts-jest": "0.7.0",
     "@mikro-orm/cli": "6.3.13",
     "@nestjs/cli": "10.4.4",
     "@nestjs/schematics": "10.1.3",
