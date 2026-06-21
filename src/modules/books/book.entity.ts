@@ -1,19 +1,24 @@
-import { Entity, PrimaryKey, Property } from '@mikro-orm/core';
+import { Entity, ManyToOne, Property } from '@mikro-orm/core';
+import { Author } from 'src/modules/authors/author.entity';
+import { BaseEntity } from 'src/common/base.entity';
 
-@Entity()
-export class Book {
-  @PrimaryKey()
-  id!: number;
-
-  @Property()
+@Entity({ tableName: 'books' })
+export class Book extends BaseEntity {
+  @Property({ type: 'string' })
   title!: string;
 
   @Property({ type: 'text', nullable: true })
   description?: string;
 
-  @Property()
+  @Property({ type: 'datetime' })
   publishedAt: Date = new Date();
 
-  @Property({ default: true })
+  @Property({ type: 'boolean', default: true })
   isAvailable: boolean = true;
+
+  @ManyToOne(() => Author, { deleteRule: 'cascade', joinColumn: 'author_id' })
+  author!: Author;
+
+  @Property({ type: 'uuid', fieldName: 'author_id' })
+  authorId!: string;
 }
