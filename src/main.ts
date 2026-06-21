@@ -12,6 +12,7 @@ import {
   ValidationPipe,
   VersioningType,
 } from '@nestjs/common';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 const port: string = process.env.PORT || '3002';
 async function bootstrap() {
@@ -47,6 +48,15 @@ async function bootstrap() {
       type: VersioningType.URI,
       defaultVersion: '1',
     });
+
+    const swaggerConfig = new DocumentBuilder()
+      .setTitle('Books API')
+      .setDescription('API documentation')
+      .setVersion('1.0')
+      .addBearerAuth()
+      .build();
+    const document = SwaggerModule.createDocument(app, swaggerConfig);
+    SwaggerModule.setup('docs', app, document);
 
     await app.listen(port, '0.0.0.0', () => {
       Logger.log(`server is listening on ${port}`);
